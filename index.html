@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Каталог — MiniTech</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#" aria-label="MiniTech — на головну">
+        <span class="brand__logo" aria-hidden="true">▣</span>
+        <span class="brand__name">MiniTech</span>
+      </a>
+
+      <form class="search" role="search" aria-label="Пошук товарів">
+        <label class="search__label" for="searchInput">Пошук</label>
+        <input
+          class="search__input"
+          id="searchInput"
+          type="search"
+          placeholder="Напр. “навушники” або “клавіатура”"
+          autocomplete="off"
+        />
+        <button class="search__clear" type="button" id="clearSearchBtn" aria-label="Очистити пошук">
+          ✕
+        </button>
+      </form>
+
+      <button class="cart-btn" type="button" id="openCartBtn" aria-haspopup="dialog" aria-controls="cartModal">
+        <span aria-hidden="true">🛒</span>
+        <span class="cart-btn__text">Кошик</span>
+        <span class="cart-badge" id="cartBadge" aria-label="Кількість у кошику">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container layout">
+      <aside class="filters" aria-label="Фільтри каталогу">
+        <h2 class="filters__title">Фільтри</h2>
+
+        <section class="filters__section">
+          <h3 class="filters__subtitle">Категорії</h3>
+          <div class="checks" id="categoryChecks">
+            <!-- JS вставить чекбокси категорій -->
+          </div>
+        </section>
+
+        <section class="filters__section">
+          <h3 class="filters__subtitle">Наявність</h3>
+          <label class="toggle" for="inStockOnly">
+            <input class="toggle__input" type="checkbox" id="inStockOnly" />
+            <span class="toggle__ui" aria-hidden="true"></span>
+            <span class="toggle__text">Лише в наявності</span>
+          </label>
+        </section>
+
+        <section class="filters__section">
+          <h3 class="filters__subtitle">Ціна (₴)</h3>
+          <div class="price-range">
+            <div class="field">
+              <label class="field__label" for="minPrice">Від</label>
+              <input class="field__input" id="minPrice" type="number" min="0" step="50" placeholder="0" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="maxPrice">До</label>
+              <input class="field__input" id="maxPrice" type="number" min="0" step="50" placeholder="5000" />
+            </div>
+          </div>
+          <p class="hint">Порада: залиште поле порожнім, якщо не хочете обмежувати.</p>
+        </section>
+
+        <section class="filters__section">
+          <h3 class="filters__subtitle">Сортування</h3>
+          <label class="field">
+            <span class="field__label">Порядок</span>
+            <select class="field__select" id="sortSelect">
+              <option value="price-asc">Ціна: зростання</option>
+              <option value="price-desc">Ціна: спадання</option>
+              <option value="rating-desc">Рейтинг: високий → низький</option>
+              <option value="name-asc">Назва: A → Я</option>
+            </select>
+          </label>
+        </section>
+
+        <div class="filters__actions">
+          <button class="btn btn--ghost" type="button" id="resetFiltersBtn">Скинути фільтри</button>
+        </div>
+      </aside>
+
+      <section class="catalog" aria-label="Каталог товарів">
+        <div class="catalog__top">
+          <h1 class="catalog__title">Каталог</h1>
+          <p class="catalog__meta">
+            Знайдено: <strong id="resultsCount">0</strong>
+          </p>
+        </div>
+
+        <div class="grid" id="productsGrid" aria-live="polite">
+          <!-- JS рендерить картки -->
+        </div>
+
+        <div class="empty" id="emptyState" hidden>
+          <h2 class="empty__title">Нічого не знайдено</h2>
+          <p class="empty__text">Спробуйте змінити фільтри або пошуковий запит.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__text">Демо-сторінка каталогу. Дані — локальні (без бекенду).</p>
+    </div>
+  </footer>
+
+  <!-- Modal: Cart -->
+  <div class="modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+    <div class="modal__backdrop" id="cartBackdrop" aria-hidden="true"></div>
+
+    <div class="modal__panel" role="document">
+      <div class="modal__header">
+        <h2 class="modal__title" id="cartTitle">Кошик</h2>
+        <button class="icon-btn" type="button" id="closeCartBtn" aria-label="Закрити кошик">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="cart" id="cartItems">
+          <!-- JS рендерить позиції -->
+        </div>
+
+        <div class="cart-empty" id="cartEmpty" hidden>
+          <p>Кошик порожній. Додайте щось із каталогу 🙂</p>
+        </div>
+      </div>
+
+      <div class="modal__footer">
+        <div class="total">
+          <span class="total__label">Разом:</span>
+          <span class="total__value" id="cartTotal">₴0</span>
+        </div>
+        <div class="modal__actions">
+          <button class="btn btn--ghost" type="button" id="clearCartBtn">Очистити</button>
+          <button class="btn btn--primary" type="button" id="checkoutBtn">Оформити (демо)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
